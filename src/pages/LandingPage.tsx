@@ -16,15 +16,29 @@ function LandingPage() {
 
       {/* Hero Section */}
       <section className="flex flex-col items-center justify-center flex-1 text-center px-4">
-        <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">Save Everything. <span className="text-primary-600">Anywhere.</span></h1>
+        <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">Transform your chaotic bookmarks into an organized, visual workspace.</h1>
         <p className="text-lg md:text-xl text-gray-700 mb-8 max-w-2xl">
-          Hoarder lets you save links, articles, videos, and more from any platform. Organize, tag, and access your knowledge from one beautiful dashboard. WhatsApp integration makes saving effortless.
+          Discover and revisit your favorite content with ease.
         </p>
-        <div className="space-x-4 mb-12">
-          <Link to="/signup" className="bg-primary-600 text-white px-6 py-3 rounded-lg font-semibold shadow hover:bg-primary-700 transition text-lg">Get Started</Link>
-          <Link to="/login" className="text-primary-700 font-medium underline text-lg">Sign In</Link>
+        <div className="space-x-4 mb-4">
+          <Link to="/signup" className="bg-primary-600 text-white px-6 py-3 rounded-lg font-semibold shadow hover:bg-primary-700 transition text-lg">Get Started - It's Free</Link>
         </div>
-        <img src="/landing-illustration.svg" alt="Hoarder illustration" className="w-full max-w-xl mx-auto mb-8" />
+        <p className="text-gray-400 text-sm mb-12">No credit card required • Free forever plan available</p>
+        {/* Stats Section */}
+        <div className="flex flex-col md:flex-row justify-center gap-8 mt-4 mb-8">
+          <div className="text-center">
+            <div className="text-2xl font-bold text-primary-700">50K+</div>
+            <div className="text-gray-600 text-sm">Bookmarks organized</div>
+          </div>
+          <div className="text-center">
+            <div className="text-2xl font-bold text-primary-700">10K+</div>
+            <div className="text-gray-600 text-sm">Active users</div>
+          </div>
+          <div className="text-center">
+            <div className="text-2xl font-bold text-primary-700">100+</div>
+            <div className="text-gray-600 text-sm">Visual collections</div>
+          </div>
+        </div>
       </section>
 
       {/* Features Section */}
