@@ -43,6 +43,7 @@ function QuickAddBookmark({ onBookmarkAdded }: QuickAddBookmarkProps) {
         image_url: metadata.image,
         platform: metadata.platform,
         tags,
+        source: 'web' as const,
         user_id: user.id
       }
 

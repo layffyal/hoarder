@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import { supabase, UserPhoneNumber } from '../lib/supabase'
-import { Bell, Shield, Trash2, MessageCircle, Chrome, Phone } from 'lucide-react'
+import { Bell, Shield, Trash2, MessageCircle, Chrome } from 'lucide-react'
 import toast from 'react-hot-toast'
 import WhatsAppBotSetup from '../components/WhatsAppBotSetup'
 

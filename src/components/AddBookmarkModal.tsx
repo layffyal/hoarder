@@ -77,18 +77,20 @@ function AddBookmarkModal({ isOpen, onClose, onBookmarkAdded }: AddBookmarkModal
 
     setLoading(true)
     try {
-      const newBookmark: Omit<Bookmark, 'id' | 'user_id' | 'created_at' | 'updated_at'> = {
+      const newBookmark = {
         url: url.trim(),
         title: title.trim(),
         description: description.trim() || undefined,
         image_url: imageUrl.trim() || undefined,
         platform,
-        tags
+        tags,
+        source: 'web' as const,
+        user_id: user.id
       }
 
       const { error } = await supabase
         .from('bookmarks')
-        .insert([{ ...newBookmark, user_id: user.id }])
+        .insert([newBookmark])
 
       if (error) throw error
 
