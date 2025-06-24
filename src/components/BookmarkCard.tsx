@@ -9,6 +9,43 @@ interface BookmarkCardProps {
   onUpdate: () => void
 }
 
+const PLATFORM_PLACEHOLDERS: Record<string, string> = {
+  twitter: '/placeholders/twitter.png',
+  linkedin: '/placeholders/linkedin.png',
+  medium: '/placeholders/medium.png',
+  substack: '/placeholders/substack.png',
+  reddit: '/placeholders/reddit.png',
+  youtube: '/placeholders/youtube.png',
+  tiktok: '/placeholders/tiktok.png',
+  instagram: '/placeholders/instagram.png',
+  vimeo: '/placeholders/vimeo.png',
+  github: '/placeholders/github.png',
+  stackoverflow: '/placeholders/stackoverflow.png',
+  'dev.to': '/placeholders/devto.png',
+  'hacker-news': '/placeholders/hackernews.png',
+  nytimes: '/placeholders/nytimes.png',
+  wsj: '/placeholders/wsj.png',
+  'the-verge': '/placeholders/theverge.png',
+  techcrunch: '/placeholders/techcrunch.png',
+  pocket: '/placeholders/pocket.png',
+  instapaper: '/placeholders/instapaper.png',
+  notion: '/placeholders/notion.png',
+  roam: '/placeholders/roam.png',
+  obsidian: '/placeholders/obsidian.png',
+  'google-docs': '/placeholders/googledocs.png',
+  'google-sheets': '/placeholders/googlesheets.png',
+  loom: '/placeholders/loom.png',
+  coursera: '/placeholders/coursera.png',
+  udemy: '/placeholders/udemy.png',
+  'product-hunt': '/placeholders/producthunt.png',
+  pinterest: '/placeholders/pinterest.png',
+  dribbble: '/placeholders/dribbble.png',
+  behance: '/placeholders/behance.png',
+  amazon: '/placeholders/amazon.png',
+  etsy: '/placeholders/etsy.png',
+  web: '/placeholders/web.png',
+};
+
 function BookmarkCard({ bookmark, onUpdate }: BookmarkCardProps) {
   const [isDeleting, setIsDeleting] = useState(false)
 
@@ -67,6 +104,8 @@ function BookmarkCard({ bookmark, onUpdate }: BookmarkCardProps) {
     window.open(bookmark.url, '_blank')
   }
 
+  const imageToShow = bookmark.image_url || PLATFORM_PLACEHOLDERS[bookmark.platform] || PLATFORM_PLACEHOLDERS['web'];
+
   return (
     <div className="card hover:shadow-md transition-shadow">
       {/* Header */}
@@ -97,18 +136,16 @@ function BookmarkCard({ bookmark, onUpdate }: BookmarkCardProps) {
       </div>
 
       {/* Image */}
-      {bookmark.image_url && (
-        <div className="mb-3">
-          <img
-            src={bookmark.image_url}
-            alt={bookmark.title}
-            className="w-full h-32 object-cover rounded-lg"
-            onError={(e) => {
-              e.currentTarget.style.display = 'none'
-            }}
-          />
-        </div>
-      )}
+      <div className="mb-3">
+        <img
+          src={imageToShow}
+          alt={bookmark.title}
+          className="w-full h-32 object-cover rounded-lg"
+          onError={(e) => {
+            e.currentTarget.src = PLATFORM_PLACEHOLDERS['web'];
+          }}
+        />
+      </div>
 
       {/* Content */}
       <div className="space-y-2">
