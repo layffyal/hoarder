@@ -71,6 +71,8 @@ function WhatsAppBotSetup({ isOpen, onClose }: WhatsAppBotSetupProps) {
           is_verified: false
         }])
 
+      console.log('Insert complete, error:', error);
+
       if (error) {
         if (error.code === '23505') {
           toast.error('This phone number is already linked to another account')
@@ -78,16 +80,50 @@ function WhatsAppBotSetup({ isOpen, onClose }: WhatsAppBotSetupProps) {
           throw error
         }
       } else {
-        setLinkedPhone({
-          id: '',
-          user_id: user?.id || '',
-          phone_number: formattedPhone,
-          is_verified: false,
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString()
-        })
-        setStep('instructions')
-        toast.success('Phone number linked successfully!')
+        // Fetch the real row to get the correct UUID
+        const { data: phoneRow, error: fetchError } = await supabase
+          .from('user_phone_numbers')
+          .select('*')
+          .eq('user_id', user?.id)
+          .single()
+        console.log('Fetched phone row:', phoneRow, 'fetchError:', fetchError);
+        if (fetchError || !phoneRow) {
+          toast.error('Failed to fetch linked phone number')
+        } else {
+          setLinkedPhone(phoneRow)
+          setStep('instructions')
+          toast.success('Phone number linked successfully!')
+          
+          // Send welcome WhatsApp message
+          try {
+            console.log('Attempting to send welcome message to:', formattedPhone)
+            console.log('Supabase URL:', import.meta.env.VITE_SUPABASE_URL)
+            console.log('Supabase Anon Key:', import.meta.env.VITE_SUPABASE_ANON_KEY ? 'Present' : 'Missing')
+            
+            const response = await fetch(
+              `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/send-welcome-message`,
+              {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`
+                },
+                body: JSON.stringify({ phoneNumber: formattedPhone })
+              }
+            )
+            
+            console.log('Welcome message response status:', response.status)
+            console.log('Welcome message response:', await response.text())
+            
+            if (response.ok) {
+              toast.success('Welcome message sent to your WhatsApp!')
+            } else {
+              console.log('Welcome message not sent (this is normal in development)')
+            }
+          } catch (error) {
+            console.error('Could not send welcome message:', error)
+          }
+        }
       }
     } catch (error) {
       toast.error('Failed to link phone number')
