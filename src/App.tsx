@@ -9,6 +9,7 @@ import SignUp from './pages/SignUp'
 import Categories from './pages/Categories'
 import PlatformView from './pages/PlatformView'
 import Settings from './pages/Settings'
+import LandingPage from './pages/LandingPage'
 
 function App() {
   return (
@@ -17,11 +18,12 @@ function App() {
         <div className="min-h-screen bg-gray-50">
           <Routes>
             {/* Public routes */}
+            <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             
             {/* Protected routes */}
-            <Route path="/" element={<PrivateRoute><Layout /></PrivateRoute>}>
+            <Route path="/app" element={<PrivateRoute><Layout /></PrivateRoute>}>
               <Route index element={<Home />} />
               <Route path="categories" element={<Categories />} />
               <Route path="platforms" element={<PlatformView />} />
