@@ -2,15 +2,16 @@ interface Metadata {
   title: string
   description?: string
   image?: string
-  platform: 'twitter' | 'linkedin' | 'reddit' | 'tiktok' | 'web'
+  platform: 'twitter' | 'linkedin' | 'reddit' | 'tiktok' | 'youtube' | 'web'
 }
 
 // Detect platform from URL
-export const detectPlatform = (url: string): 'twitter' | 'linkedin' | 'reddit' | 'tiktok' | 'web' => {
+export const detectPlatform = (url: string): 'twitter' | 'linkedin' | 'reddit' | 'tiktok' | 'youtube' | 'web' => {
   if (url.includes('twitter.com') || url.includes('x.com')) return 'twitter'
   if (url.includes('linkedin.com')) return 'linkedin'
   if (url.includes('reddit.com')) return 'reddit'
   if (url.includes('tiktok.com')) return 'tiktok'
+  if (url.includes('youtube.com') || url.includes('youtu.be')) return 'youtube'
   return 'web'
 }
 
@@ -43,6 +44,8 @@ export const extractBasicMetadata = (url: string): Partial<Metadata> => {
       }
     } else if (platform === 'tiktok') {
       title = 'TikTok Video'
+    } else if (platform === 'youtube') {
+      title = 'YouTube Video'
     } else {
       // For web URLs, try to get a meaningful title from the path
       if (pathParts.length > 0) {
@@ -170,6 +173,9 @@ export const generateTags = (title: string, description?: string, platform?: str
   }
   if (platform === 'tiktok' || text.includes('tiktok')) {
     tags.push('video', 'social media', 'tiktok')
+  }
+  if (platform === 'youtube' || text.includes('youtube')) {
+    tags.push('video', 'youtube', 'streaming')
   }
   
   // Add content type tags based on keywords
