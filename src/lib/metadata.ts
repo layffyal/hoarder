@@ -68,68 +68,29 @@ export const extractBasicMetadata = (url: string): Partial<Metadata> => {
   }
 }
 
-// Fetch full metadata from URL using multiple strategies
+// Fetch full metadata from URL using Microlink API
 export const fetchUrlMetadata = async (url: string): Promise<Metadata> => {
   const basicMetadata = extractBasicMetadata(url)
   const platform = basicMetadata.platform || 'web'
-  
+
   // Special handling for Twitter/X
   if (platform === 'twitter') {
     return handleTwitterUrl(url, basicMetadata)
   }
-  
+
   try {
-    // Try multiple proxy services for better success rate
-    const proxies = [
-      `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`,
-      `https://cors-anywhere.herokuapp.com/${url}`,
-      `https://thingproxy.freeboard.io/fetch/${url}`
-    ]
-    
-    for (const proxyUrl of proxies) {
-      try {
-        const response = await fetch(proxyUrl, {
-          headers: {
-            'User-Agent': 'Mozilla/5.0 (compatible; HoarderBot/1.0)'
-          }
-        })
-        
-        if (response.ok) {
-          const data = await response.json()
-          const html = data.contents || data
-          
-          if (html && typeof html === 'string') {
-            // Extract title from meta tags
-            const titleMatch = html.match(/<title[^>]*>([^<]+)<\/title>/i) ||
-                              html.match(/<meta[^>]*property="og:title"[^>]*content="([^"]+)"/i) ||
-                              html.match(/<meta[^>]*name="twitter:title"[^>]*content="([^"]+)"/i)
-            
-            // Extract description from meta tags
-            const descMatch = html.match(/<meta[^>]*name="description"[^>]*content="([^"]+)"/i) ||
-                             html.match(/<meta[^>]*property="og:description"[^>]*content="([^"]+)"/i) ||
-                             html.match(/<meta[^>]*name="twitter:description"[^>]*content="([^"]+)"/i)
-            
-            // Extract image from meta tags
-            const imageMatch = html.match(/<meta[^>]*property="og:image"[^>]*content="([^"]+)"/i) ||
-                              html.match(/<meta[^>]*name="twitter:image"[^>]*content="([^"]+)"/i)
-            
-            return {
-              title: titleMatch?.[1] || basicMetadata.title || 'Unknown',
-              description: descMatch?.[1] || undefined,
-              image: imageMatch?.[1] || undefined,
-              platform
-            }
-          }
-        }
-      } catch (error) {
-        console.error(`Proxy ${proxyUrl} failed:`, error)
-        continue
-      }
+    const response = await fetch(`https://api.microlink.io/?url=${encodeURIComponent(url)}`)
+    const { data } = await response.json()
+    return {
+      title: data.title || basicMetadata.title || 'Unknown',
+      description: data.description || undefined,
+      image: data.image?.url || undefined,
+      platform
     }
   } catch (error) {
-    console.error('Error fetching metadata:', error)
+    console.error('Error fetching metadata from Microlink:', error)
   }
-  
+
   // Fallback to basic metadata
   return {
     title: basicMetadata.title || 'Unknown',
