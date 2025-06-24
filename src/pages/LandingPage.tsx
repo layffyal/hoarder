@@ -4,6 +4,16 @@ import { FaTwitter, FaGithub } from 'react-icons/fa'
 function LandingPage() {
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-white to-[#f6faff]">
+      {/* Navbar */}
+      <nav className="flex items-center justify-between px-8 py-6">
+        <div className="flex items-center space-x-2">
+          <span className="text-2xl font-bold text-primary-600">🧠 hoarder</span>
+        </div>
+        <div className="space-x-4">
+          <Link to="/login" className="text-primary-700 font-medium hover:underline">Sign In</Link>
+          <Link to="/signup" className="bg-primary-600 text-white px-4 py-2 rounded-lg font-semibold shadow hover:bg-primary-700 transition">Create Account</Link>
+        </div>
+      </nav>
       {/* Main Content */}
       <main className="flex-1 flex flex-col items-center justify-center text-center px-4">
         <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 mb-4">
@@ -41,17 +51,17 @@ function LandingPage() {
               <span className="inline-block align-middle">
                 <svg width="20" height="20" fill="none" viewBox="0 0 24 24">
                   <circle cx="12" cy="12" r="10" fill="#3b82f6" />
-                  <text x="12" y="16" textAnchor="middle" fontSize="12" fill="white" fontWeight="bold">🔗</text>
+                  <text x="12" y="16" textAnchor="middle" fontSize="12" fill="white" fontWeight="bold">🧠</text>
                 </svg>
               </span>
-              linkr
+              hoarder
             </span>
           </div>
           <div className="flex items-center gap-4 justify-center mb-2">
             <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer" className="hover:text-primary-400"><FaTwitter size={20} /></a>
             <a href="https://github.com/" target="_blank" rel="noopener noreferrer" className="hover:text-primary-400"><FaGithub size={20} /></a>
           </div>
-          <div>&copy; {new Date().getFullYear()} linkr. All rights reserved.</div>
+          <div>&copy; {new Date().getFullYear()} hoarder. All rights reserved.</div>
         </div>
       </footer>
     </div>
