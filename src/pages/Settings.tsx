@@ -1,13 +1,42 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useAuth } from '../contexts/AuthContext'
-import { Bell, Shield, Trash2, MessageCircle, Chrome } from 'lucide-react'
+import { supabase, UserPhoneNumber } from '../lib/supabase'
+import { Bell, Shield, Trash2, MessageCircle, Chrome, Phone } from 'lucide-react'
 import toast from 'react-hot-toast'
+import WhatsAppBotSetup from '../components/WhatsAppBotSetup'
 
 function Settings() {
   const { user, signOut } = useAuth()
   const [notifications, setNotifications] = useState(true)
   const [whatsappBot, setWhatsappBot] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
+  const [showWhatsAppSetup, setShowWhatsAppSetup] = useState(false)
+  const [linkedPhone, setLinkedPhone] = useState<UserPhoneNumber | null>(null)
+
+  useEffect(() => {
+    if (user) {
+      fetchLinkedPhone()
+    }
+  }, [user])
+
+  const fetchLinkedPhone = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('user_phone_numbers')
+        .select('*')
+        .eq('user_id', user?.id)
+        .single()
+
+      if (error && error.code !== 'PGRST116') {
+        console.error('Error fetching phone number:', error)
+      } else if (data) {
+        setLinkedPhone(data)
+        setWhatsappBot(true)
+      }
+    } catch (error) {
+      console.error('Error fetching phone number:', error)
+    }
+  }
 
   const handleSignOut = async () => {
     try {
@@ -42,8 +71,18 @@ function Settings() {
   }
 
   const handleToggleWhatsAppBot = () => {
-    setWhatsappBot(!whatsappBot)
-    toast.success(`WhatsApp bot ${!whatsappBot ? 'enabled' : 'disabled'}`)
+    if (!whatsappBot) {
+      setShowWhatsAppSetup(true)
+    } else {
+      setWhatsappBot(false)
+      setLinkedPhone(null)
+      toast.success('WhatsApp bot disabled')
+    }
+  }
+
+  const handleWhatsAppSetupClose = () => {
+    setShowWhatsAppSetup(false)
+    fetchLinkedPhone() // Refresh the linked phone status
   }
 
   return (
@@ -51,29 +90,23 @@ function Settings() {
       {/* Header */}
       <div>
         <h1 className="text-2xl font-bold text-gray-900">Settings</h1>
-        <p className="text-gray-600">Manage your account and preferences</p>
+        <p className="text-gray-600">Manage your account preferences and integrations</p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Account Settings */}
+      <div className="space-y-6">
+        {/* Account Info */}
         <div className="card">
           <h2 className="text-lg font-medium text-gray-900 mb-4">Account</h2>
-          <div className="space-y-4">
+          <div className="space-y-3">
             <div>
-              <label className="block text-sm font-medium text-gray-700">Email</label>
-              <p className="mt-1 text-sm text-gray-900">{user?.email}</p>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">Account Created</label>
-              <p className="mt-1 text-sm text-gray-900">
-                {user?.created_at ? new Date(user.created_at).toLocaleDateString() : 'Unknown'}
-              </p>
+              <p className="text-sm font-medium text-gray-900">Email</p>
+              <p className="text-sm text-gray-600">{user?.email}</p>
             </div>
             <button
               onClick={handleSignOut}
-              className="btn btn-secondary"
+              className="text-red-600 hover:text-red-700 text-sm"
             >
-              Sign Out
+              Sign out
             </button>
           </div>
         </div>
@@ -128,7 +161,12 @@ function Settings() {
                 <MessageCircle className="h-5 w-5 text-gray-400 mr-3" />
                 <div>
                   <p className="text-sm font-medium text-gray-900">WhatsApp Bot</p>
-                  <p className="text-sm text-gray-600">Save links by messaging the bot</p>
+                  <p className="text-sm text-gray-600">
+                    {linkedPhone 
+                      ? `Linked to ${linkedPhone.phone_number}`
+                      : 'Save links by messaging the bot'
+                    }
+                  </p>
                 </div>
               </div>
               <button
@@ -171,20 +209,11 @@ function Settings() {
         </div>
       </div>
 
-      {/* WhatsApp Bot Instructions */}
-      {whatsappBot && (
-        <div className="card bg-blue-50 border-blue-200">
-          <h3 className="text-lg font-medium text-blue-900 mb-2">WhatsApp Bot Setup</h3>
-          <p className="text-blue-800 mb-4">
-            To use the WhatsApp bot, send a message to our bot number with any link you want to save.
-          </p>
-          <div className="bg-white p-3 rounded border border-blue-200">
-            <p className="text-sm text-blue-900 font-mono">
-              +1 (555) 123-4567
-            </p>
-          </div>
-        </div>
-      )}
+      {/* WhatsApp Bot Setup Modal */}
+      <WhatsAppBotSetup 
+        isOpen={showWhatsAppSetup} 
+        onClose={handleWhatsAppSetupClose} 
+      />
     </div>
   )
 }

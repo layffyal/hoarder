@@ -47,6 +47,7 @@ export interface Bookmark {
   image_url?: string
   platform: 'twitter' | 'linkedin' | 'reddit' | 'tiktok' | 'web'
   tags: string[]
+  source: 'web' | 'whatsapp' | 'extension'
   created_at: string
   updated_at: string
 }
@@ -55,4 +56,13 @@ export interface User {
   id: string
   email: string
   created_at: string
+}
+
+export interface UserPhoneNumber {
+  id: string
+  user_id: string
+  phone_number: string
+  is_verified: boolean
+  created_at: string
+  updated_at: string
 } 
