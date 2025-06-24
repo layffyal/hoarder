@@ -11,13 +11,22 @@ interface AddBookmarkModalProps {
   onBookmarkAdded: () => void
 }
 
+// Define all supported platforms as a union type
+const ALL_PLATFORMS = [
+  'twitter', 'linkedin', 'medium', 'substack', 'reddit', 'youtube', 'tiktok', 'instagram', 'vimeo',
+  'github', 'stackoverflow', 'dev.to', 'hacker-news', 'nytimes', 'wsj', 'the-verge', 'techcrunch',
+  'pocket', 'instapaper', 'notion', 'roam', 'obsidian', 'google-docs', 'google-sheets', 'loom',
+  'coursera', 'udemy', 'product-hunt', 'pinterest', 'dribbble', 'behance', 'amazon', 'etsy', 'web'
+] as const;
+type PlatformType = typeof ALL_PLATFORMS[number];
+
 function AddBookmarkModal({ isOpen, onClose, onBookmarkAdded }: AddBookmarkModalProps) {
   const { user } = useAuth()
   const [url, setUrl] = useState('')
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [imageUrl, setImageUrl] = useState('')
-  const [platform, setPlatform] = useState<'twitter' | 'linkedin' | 'reddit' | 'tiktok' | 'web'>('web')
+  const [platform, setPlatform] = useState<PlatformType>('web')
   const [tags, setTags] = useState<string[]>([])
   const [newTag, setNewTag] = useState('')
   const [loading, setLoading] = useState(false)
@@ -166,7 +175,7 @@ function AddBookmarkModal({ isOpen, onClose, onBookmarkAdded }: AddBookmarkModal
               Platform
             </label>
             <div className="grid grid-cols-3 gap-2">
-              {(['twitter', 'linkedin', 'reddit', 'tiktok', 'web'] as const).map((p) => (
+              {ALL_PLATFORMS.map((p) => (
                 <button
                   key={p}
                   type="button"
@@ -177,7 +186,7 @@ function AddBookmarkModal({ isOpen, onClose, onBookmarkAdded }: AddBookmarkModal
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
                 >
-                  {p.charAt(0).toUpperCase() + p.slice(1)}
+                  {p.charAt(0).toUpperCase() + p.slice(1).replace(/-/g, ' ')}
                 </button>
               ))}
             </div>
