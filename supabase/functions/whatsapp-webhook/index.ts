@@ -264,22 +264,16 @@ async function sendWhatsAppMessage(to: string, message: string) {
   }
 }
 
-// Metadata fetching function (simplified version)
+// Metadata fetching function using Microlink API
 async function fetchUrlMetadata(url: string) {
   try {
-    const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`)
-    const data = await response.json()
-    const html = data.contents
-
-    const titleMatch = html.match(/<title[^>]*>([^<]+)<\/title>/i) ||
-                      html.match(/<meta[^>]*property="og:title"[^>]*content="([^"]+)"/i)
-    
-    const descMatch = html.match(/<meta[^>]*name="description"[^>]*content="([^"]+)"/i) ||
-                     html.match(/<meta[^>]*property="og:description"[^>]*content="([^"]+)"/i)
+    const response = await fetch(`https://api.microlink.io/?url=${encodeURIComponent(url)}`)
+    const { data } = await response.json()
 
     return {
-      title: titleMatch?.[1] || 'Unknown',
-      description: descMatch?.[1],
+      title: data.title || 'Unknown',
+      description: data.description,
+      image: data.image?.url,
       platform: detectPlatform(url)
     }
   } catch (error) {
