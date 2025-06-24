@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { X, Link, Tag, Plus, Loader2, Sparkles } from 'lucide-react'
 import { useAuth } from '../contexts/AuthContext'
-import { supabase, Bookmark } from '../lib/supabase'
+import { supabase } from '../lib/supabase'
 import { fetchUrlMetadata, generateTags } from '../lib/metadata'
 import toast from 'react-hot-toast'
 
