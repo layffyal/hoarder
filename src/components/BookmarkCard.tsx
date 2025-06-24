@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Bookmark, supabase } from '../lib/supabase'
-import { ExternalLink, Trash2, Edit, Tag, Calendar } from 'lucide-react'
+import { ExternalLink, Trash2, Tag, Calendar } from 'lucide-react'
 import { formatDistanceToNow } from 'date-fns'
 import toast from 'react-hot-toast'
 

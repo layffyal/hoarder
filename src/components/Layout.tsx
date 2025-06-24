@@ -4,11 +4,10 @@ import { Link, useLocation } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import { 
   Home, 
-  Tag, 
-  Globe, 
+  Bookmark,
+  Grid,
   Settings, 
   LogOut,
-  Search,
   Plus
 } from 'lucide-react'
 import AddBookmarkModal from './AddBookmarkModal'
@@ -20,8 +19,8 @@ function Layout() {
 
   const navigation = [
     { name: 'Home', href: '/', icon: Home },
-    { name: 'Categories', href: '/categories', icon: Tag },
-    { name: 'Platforms', href: '/platforms', icon: Globe },
+    { name: 'Categories', href: '/categories', icon: Bookmark },
+    { name: 'Platforms', href: '/platforms', icon: Grid },
     { name: 'Settings', href: '/settings', icon: Settings },
   ]
 

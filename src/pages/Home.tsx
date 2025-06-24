@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import { supabase, Bookmark } from '../lib/supabase'
-import { Search, Filter, Grid, List, Plus, Database } from 'lucide-react'
+import { Search, Grid, List, Plus, Database } from 'lucide-react'
 import toast from 'react-hot-toast'
 import BookmarkCard from '../components/BookmarkCard'
 import AddBookmarkModal from '../components/AddBookmarkModal'

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import { supabase, Bookmark } from '../lib/supabase'
-import { Globe, Search } from 'lucide-react'
+import { Globe, Search, Twitter, Linkedin, MessageSquare, Video } from 'lucide-react'
 import toast from 'react-hot-toast'
 import BookmarkCard from '../components/BookmarkCard'
 
@@ -37,30 +37,15 @@ function PlatformView() {
   const getPlatformIcon = (platform: string) => {
     switch (platform) {
       case 'twitter':
-        return '🐦'
+        return <Twitter className="h-4 w-4" />
       case 'linkedin':
-        return '💼'
+        return <Linkedin className="h-4 w-4" />
       case 'reddit':
-        return '🤖'
+        return <MessageSquare className="h-4 w-4" />
       case 'tiktok':
-        return '🎵'
+        return <Video className="h-4 w-4" />
       default:
-        return '🌐'
-    }
-  }
-
-  const getPlatformColor = (platform: string) => {
-    switch (platform) {
-      case 'twitter':
-        return 'bg-blue-100 text-blue-800'
-      case 'linkedin':
-        return 'bg-blue-100 text-blue-800'
-      case 'reddit':
-        return 'bg-orange-100 text-orange-800'
-      case 'tiktok':
-        return 'bg-pink-100 text-pink-800'
-      default:
-        return 'bg-gray-100 text-gray-800'
+        return <Globe className="h-4 w-4" />
     }
   }
 
