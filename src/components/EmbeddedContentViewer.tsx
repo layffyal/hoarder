@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Bookmark } from '../lib/supabase'
-import { ExternalLink, Play, Image as ImageIcon, FileText, Video, Link } from 'lucide-react'
+import { ExternalLink, Play, Image as ImageIcon, Link } from 'lucide-react'
 import { fetchOEmbedData, OEmbedData } from '../lib/oembed'
 
 interface EmbeddedContentViewerProps {
@@ -9,7 +9,6 @@ interface EmbeddedContentViewerProps {
 }
 
 export default function EmbeddedContentViewer({ bookmark, isFullscreen = false }: EmbeddedContentViewerProps) {
-  const [oembedData, setOembedData] = useState<OEmbedData | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -19,8 +18,7 @@ export default function EmbeddedContentViewer({ bookmark, isFullscreen = false }
       setError(null)
       
       try {
-        const data = await fetchOEmbedData(bookmark.url, bookmark.title, bookmark.description)
-        setOembedData(data)
+        await fetchOEmbedData(bookmark.url, bookmark.title, bookmark.description)
       } catch (err) {
         console.warn('oEmbed fetch failed:', err)
         setError('Could not load embedded preview')
