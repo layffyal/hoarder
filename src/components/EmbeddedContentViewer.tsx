@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Bookmark } from '../lib/supabase'
 import { ExternalLink, Play, Image as ImageIcon, Link } from 'lucide-react'
-import { fetchOEmbedData, OEmbedData } from '../lib/oembed'
+import { fetchOEmbedData } from '../lib/oembed'
 
 interface EmbeddedContentViewerProps {
   bookmark: Bookmark
