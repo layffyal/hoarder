@@ -21,7 +21,7 @@ function Login() {
     try {
       await signIn(email, password)
       toast.success('Welcome back!')
-      navigate('/')
+      navigate('/app')
     } catch (error) {
       toast.error('Invalid email or password')
       console.error('Login error:', error)
