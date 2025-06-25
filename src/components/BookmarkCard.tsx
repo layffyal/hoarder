@@ -152,7 +152,8 @@ function BookmarkCard({ bookmark, onUpdate }: BookmarkCardProps) {
           <div className="flex items-center space-x-2">
             <span className="text-lg">{getPlatformIcon(bookmark.platform)}</span>
             <span className={`px-2 py-1 rounded-full text-xs font-medium ${getPlatformColor(bookmark.platform)}`}>
-              {bookmark.platform}
+              <span className="hidden sm:inline">{bookmark.platform}</span>
+              <span className="sm:hidden">{bookmark.platform.slice(0, 3)}</span>
             </span>
           </div>
           <div className="flex items-center space-x-1">
@@ -161,7 +162,7 @@ function BookmarkCard({ bookmark, onUpdate }: BookmarkCardProps) {
                 e.stopPropagation()
                 handleToggleFullscreen()
               }}
-              className="p-1 text-gray-400 hover:text-gray-600 transition-colors dark:text-gray-500 dark:hover:text-gray-300"
+              className="p-2 sm:p-1 text-gray-400 hover:text-gray-600 transition-colors dark:text-gray-500 dark:hover:text-gray-300"
               title={isFullscreen ? "Exit fullscreen" : "Fullscreen"}
             >
               {isFullscreen ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
@@ -171,7 +172,7 @@ function BookmarkCard({ bookmark, onUpdate }: BookmarkCardProps) {
                 e.stopPropagation()
                 handleOpenLink()
               }}
-              className="p-1 text-gray-400 hover:text-gray-600 transition-colors dark:text-gray-500 dark:hover:text-gray-300"
+              className="p-2 sm:p-1 text-gray-400 hover:text-gray-600 transition-colors dark:text-gray-500 dark:hover:text-gray-300"
               title="Open link"
             >
               <ExternalLink className="h-4 w-4" />
@@ -182,7 +183,7 @@ function BookmarkCard({ bookmark, onUpdate }: BookmarkCardProps) {
                 handleDelete()
               }}
               disabled={isDeleting}
-              className="p-1 text-gray-400 hover:text-red-600 transition-colors disabled:opacity-50 dark:text-gray-500 dark:hover:text-red-400"
+              className="p-2 sm:p-1 text-gray-400 hover:text-red-600 transition-colors disabled:opacity-50 dark:text-gray-500 dark:hover:text-red-400"
               title="Delete bookmark"
             >
               <Trash2 className="h-4 w-4" />
@@ -195,7 +196,7 @@ function BookmarkCard({ bookmark, onUpdate }: BookmarkCardProps) {
           <img
             src={imageToShow}
             alt={bookmark.title}
-            className="w-full h-32 object-cover rounded-lg"
+            className="w-full h-24 sm:h-32 object-cover rounded-lg"
             onError={(e) => {
               e.currentTarget.src = PLATFORM_PLACEHOLDERS['web'];
             }}
@@ -204,12 +205,12 @@ function BookmarkCard({ bookmark, onUpdate }: BookmarkCardProps) {
 
         {/* Content */}
         <div className="space-y-2">
-          <h3 className="font-medium text-gray-900 dark:text-gray-100 line-clamp-2">
+          <h3 className="font-medium text-gray-900 dark:text-gray-100 line-clamp-2 text-sm sm:text-base">
             {bookmark.title}
           </h3>
           
           {bookmark.description && (
-            <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-3">
+            <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 line-clamp-3">
               {bookmark.description}
             </p>
           )}
@@ -217,18 +218,19 @@ function BookmarkCard({ bookmark, onUpdate }: BookmarkCardProps) {
           {/* Tags */}
           {bookmark.tags.length > 0 && (
             <div className="flex flex-wrap gap-1">
-              {bookmark.tags.slice(0, 3).map((tag, index) => (
+              {bookmark.tags.slice(0, 2).map((tag, index) => (
                 <span
                   key={index}
                   className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-primary-100 text-primary-700 dark:bg-primary-900/50 dark:text-primary-300"
                 >
                   <Tag className="h-3 w-3 mr-1" />
-                  {tag}
+                  <span className="hidden sm:inline">{tag}</span>
+                  <span className="sm:hidden">{tag.slice(0, 8)}</span>
                 </span>
               ))}
-              {bookmark.tags.length > 3 && (
+              {bookmark.tags.length > 2 && (
                 <span className="text-xs text-gray-500 dark:text-gray-400">
-                  +{bookmark.tags.length - 3} more
+                  +{bookmark.tags.length - 2} more
                 </span>
               )}
             </div>
@@ -238,7 +240,8 @@ function BookmarkCard({ bookmark, onUpdate }: BookmarkCardProps) {
           <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
             <div className="flex items-center">
               <Calendar className="h-3 w-3 mr-1" />
-              {formatDistanceToNow(new Date(bookmark.created_at), { addSuffix: true })}
+              <span className="hidden sm:inline">{formatDistanceToNow(new Date(bookmark.created_at), { addSuffix: true })}</span>
+              <span className="sm:hidden">{formatDistanceToNow(new Date(bookmark.created_at), { addSuffix: true }).replace(' ago', '')}</span>
             </div>
             <div className="flex items-center">
               {isExpanded ? (
@@ -258,7 +261,7 @@ function BookmarkCard({ bookmark, onUpdate }: BookmarkCardProps) {
         }`}>
           {isFullscreen && (
             <div className="flex items-center justify-between mb-4 pb-4 border-b dark:border-gray-700">
-              <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">{bookmark.title}</h2>
+              <h2 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-gray-100">{bookmark.title}</h2>
               <button
                 onClick={handleToggleFullscreen}
                 className="p-2 text-gray-400 hover:text-gray-600 transition-colors dark:text-gray-500 dark:hover:text-gray-300"

@@ -129,19 +129,19 @@ function AddBookmarkModal({ isOpen, onClose, onBookmarkAdded }: AddBookmarkModal
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white dark:bg-gray-800 rounded-lg max-w-md w-full max-h-[90vh] overflow-y-auto">
-        <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-2 sm:p-4">
+      <div className="bg-white dark:bg-gray-800 rounded-lg w-full max-w-md max-h-[95vh] sm:max-h-[90vh] overflow-y-auto">
+        <div className="flex items-center justify-between p-4 sm:p-6 border-b border-gray-200 dark:border-gray-700">
           <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">Add New Bookmark</h2>
           <button
             onClick={handleClose}
-            className="text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300"
+            className="p-2 text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300"
           >
             <X className="h-5 w-5" />
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-6 space-y-4">
+        <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-4">
           {/* URL Input */}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -175,19 +175,20 @@ function AddBookmarkModal({ isOpen, onClose, onBookmarkAdded }: AddBookmarkModal
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Platform
             </label>
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
               {ALL_PLATFORMS.map((p) => (
                 <button
                   key={p}
                   type="button"
                   onClick={() => setPlatform(p)}
-                  className={`p-2 rounded-lg text-sm font-medium transition-colors ${
+                  className={`p-3 sm:p-2 rounded-lg text-sm font-medium transition-colors ${
                     platform === p
                       ? 'bg-primary-100 text-primary-700 border border-primary-300 dark:bg-primary-900/50 dark:text-primary-300 dark:border-primary-600'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'
                   }`}
                 >
-                  {p.charAt(0).toUpperCase() + p.slice(1).replace(/-/g, ' ')}
+                  <span className="hidden sm:inline">{p.charAt(0).toUpperCase() + p.slice(1).replace(/-/g, ' ')}</span>
+                  <span className="sm:hidden">{p.charAt(0).toUpperCase() + p.slice(1).replace(/-/g, ' ').slice(0, 4)}</span>
                 </button>
               ))}
             </div>
@@ -254,7 +255,7 @@ function AddBookmarkModal({ isOpen, onClose, onBookmarkAdded }: AddBookmarkModal
               <button
                 type="button"
                 onClick={addTag}
-                className="btn btn-secondary"
+                className="btn btn-secondary p-3 sm:p-2"
               >
                 <Plus className="h-4 w-4" />
               </button>
@@ -267,11 +268,12 @@ function AddBookmarkModal({ isOpen, onClose, onBookmarkAdded }: AddBookmarkModal
                     className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-primary-100 text-primary-700 dark:bg-primary-900/50 dark:text-primary-300"
                   >
                     <Tag className="h-3 w-3 mr-1" />
-                    {tag}
+                    <span className="hidden sm:inline">{tag}</span>
+                    <span className="sm:hidden">{tag.slice(0, 8)}</span>
                     <button
                       type="button"
                       onClick={() => removeTag(tag)}
-                      className="ml-1 text-primary-500 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-200"
+                      className="ml-1 p-1 text-primary-500 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-200"
                     >
                       <X className="h-3 w-3" />
                     </button>
@@ -281,8 +283,8 @@ function AddBookmarkModal({ isOpen, onClose, onBookmarkAdded }: AddBookmarkModal
             )}
           </div>
 
-          {/* Submit Button */}
-          <div className="flex gap-3 pt-4">
+          {/* Action Buttons */}
+          <div className="flex flex-col sm:flex-row gap-3 pt-4">
             <button
               type="button"
               onClick={handleClose}
@@ -292,14 +294,14 @@ function AddBookmarkModal({ isOpen, onClose, onBookmarkAdded }: AddBookmarkModal
             </button>
             <button
               type="submit"
-              disabled={loading || fetchingMetadata}
-              className="btn btn-primary flex-1 flex items-center justify-center"
+              disabled={loading}
+              className="btn btn-primary flex-1"
             >
               {loading ? (
-                <>
+                <div className="flex items-center">
                   <Loader2 className="h-4 w-4 mr-2 animate-spin" />
                   Adding...
-                </>
+                </div>
               ) : (
                 'Add Bookmark'
               )}
