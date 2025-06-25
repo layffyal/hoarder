@@ -11,6 +11,7 @@ interface AddBookmarkModalProps {
   onBookmarkAdded: () => void
 }
 
+
 // Define all supported platforms as a union type
 const ALL_PLATFORMS = [
   'twitter', 'linkedin', 'medium', 'substack', 'reddit', 'youtube', 'tiktok', 'instagram', 'vimeo',
@@ -129,12 +130,12 @@ function AddBookmarkModal({ isOpen, onClose, onBookmarkAdded }: AddBookmarkModal
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-lg max-w-md w-full max-h-[90vh] overflow-y-auto">
-        <div className="flex items-center justify-between p-6 border-b border-gray-200">
-          <h2 className="text-lg font-medium text-gray-900">Add New Bookmark</h2>
+      <div className="bg-white dark:bg-gray-800 rounded-lg max-w-md w-full max-h-[90vh] overflow-y-auto">
+        <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
+          <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">Add New Bookmark</h2>
           <button
             onClick={handleClose}
-            className="text-gray-400 hover:text-gray-600"
+            className="text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300"
           >
             <X className="h-5 w-5" />
           </button>
@@ -143,12 +144,12 @@ function AddBookmarkModal({ isOpen, onClose, onBookmarkAdded }: AddBookmarkModal
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
           {/* URL Input */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               URL *
             </label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Link className="h-5 w-5 text-gray-400" />
+                <Link className="h-5 w-5 text-gray-400 dark:text-gray-500" />
               </div>
               <input
                 type="url"
@@ -160,18 +161,18 @@ function AddBookmarkModal({ isOpen, onClose, onBookmarkAdded }: AddBookmarkModal
               />
               {fetchingMetadata && (
                 <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
-                  <Loader2 className="h-5 w-5 text-primary-600 animate-spin" />
+                  <Loader2 className="h-5 w-5 text-primary-600 dark:text-primary-400 animate-spin" />
                 </div>
               )}
             </div>
-            <p className="mt-1 text-xs text-gray-500">
+            <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
               Paste a URL and we'll automatically fetch the metadata
             </p>
           </div>
 
           {/* Platform Selection */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Platform
             </label>
             <div className="grid grid-cols-3 gap-2">
@@ -182,8 +183,8 @@ function AddBookmarkModal({ isOpen, onClose, onBookmarkAdded }: AddBookmarkModal
                   onClick={() => setPlatform(p)}
                   className={`p-2 rounded-lg text-sm font-medium transition-colors ${
                     platform === p
-                      ? 'bg-primary-100 text-primary-700 border border-primary-300'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      ? 'bg-primary-100 text-primary-700 border border-primary-300 dark:bg-primary-900/50 dark:text-primary-300 dark:border-primary-600'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'
                   }`}
                 >
                   {p.charAt(0).toUpperCase() + p.slice(1).replace(/-/g, ' ')}
@@ -194,7 +195,7 @@ function AddBookmarkModal({ isOpen, onClose, onBookmarkAdded }: AddBookmarkModal
 
           {/* Title Input */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Title *
             </label>
             <input
@@ -209,7 +210,7 @@ function AddBookmarkModal({ isOpen, onClose, onBookmarkAdded }: AddBookmarkModal
 
           {/* Description Input */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Description
             </label>
             <textarea
@@ -223,7 +224,7 @@ function AddBookmarkModal({ isOpen, onClose, onBookmarkAdded }: AddBookmarkModal
 
           {/* Image URL Input */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Image URL
             </label>
             <input
@@ -237,7 +238,7 @@ function AddBookmarkModal({ isOpen, onClose, onBookmarkAdded }: AddBookmarkModal
 
           {/* Tags Input */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 flex items-center">
               <Sparkles className="h-4 w-4 mr-1" />
               Tags (AI-generated)
             </label>
@@ -263,14 +264,14 @@ function AddBookmarkModal({ isOpen, onClose, onBookmarkAdded }: AddBookmarkModal
                 {tags.map((tag) => (
                   <span
                     key={tag}
-                    className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-primary-100 text-primary-700"
+                    className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-primary-100 text-primary-700 dark:bg-primary-900/50 dark:text-primary-300"
                   >
                     <Tag className="h-3 w-3 mr-1" />
                     {tag}
                     <button
                       type="button"
                       onClick={() => removeTag(tag)}
-                      className="ml-1 text-primary-500 hover:text-primary-700"
+                      className="ml-1 text-primary-500 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-200"
                     >
                       <X className="h-3 w-3" />
                     </button>

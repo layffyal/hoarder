@@ -65,12 +65,12 @@ function QuickAddBookmark({ onBookmarkAdded }: QuickAddBookmarkProps) {
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
-      <h3 className="text-lg font-medium text-gray-900 mb-3">Quick Add Bookmark</h3>
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4">
+      <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-3">Quick Add Bookmark</h3>
       <form onSubmit={handleQuickAdd} className="flex gap-2">
         <div className="flex-1 relative">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <Link className="h-5 w-5 text-gray-400" />
+            <Link className="h-5 w-5 text-gray-400 dark:text-gray-500" />
           </div>
           <input
             type="url"
@@ -82,7 +82,7 @@ function QuickAddBookmark({ onBookmarkAdded }: QuickAddBookmarkProps) {
           />
           {loading && (
             <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
-              <Loader2 className="h-5 w-5 text-primary-600 animate-spin" />
+              <Loader2 className="h-5 w-5 text-primary-600 dark:text-primary-400 animate-spin" />
             </div>
           )}
         </div>
@@ -95,7 +95,7 @@ function QuickAddBookmark({ onBookmarkAdded }: QuickAddBookmarkProps) {
           {loading ? 'Adding...' : 'Add'}
         </button>
       </form>
-      <p className="mt-2 text-xs text-gray-500">
+      <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
         Just paste a URL and we'll automatically fetch the title, description, and tags
       </p>
     </div>

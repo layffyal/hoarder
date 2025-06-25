@@ -89,22 +89,22 @@ function Settings() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Settings</h1>
-        <p className="text-gray-600">Manage your account preferences and integrations</p>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Settings</h1>
+        <p className="text-gray-600 dark:text-gray-400">Manage your account preferences and integrations</p>
       </div>
 
       <div className="space-y-6">
         {/* Account Info */}
         <div className="card">
-          <h2 className="text-lg font-medium text-gray-900 mb-4">Account</h2>
+          <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">Account</h2>
           <div className="space-y-3">
             <div>
-              <p className="text-sm font-medium text-gray-900">Email</p>
-              <p className="text-sm text-gray-600">{user?.email}</p>
+              <p className="text-sm font-medium text-gray-900 dark:text-gray-100">Email</p>
+              <p className="text-sm text-gray-600 dark:text-gray-400">{user?.email}</p>
             </div>
             <button
               onClick={handleSignOut}
-              className="text-red-600 hover:text-red-700 text-sm"
+              className="text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 text-sm"
             >
               Sign out
             </button>
@@ -113,20 +113,20 @@ function Settings() {
 
         {/* Notifications */}
         <div className="card">
-          <h2 className="text-lg font-medium text-gray-900 mb-4">Notifications</h2>
+          <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">Notifications</h2>
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center">
-                <Bell className="h-5 w-5 text-gray-400 mr-3" />
+                <Bell className="h-5 w-5 text-gray-400 dark:text-gray-500 mr-3" />
                 <div>
-                  <p className="text-sm font-medium text-gray-900">Email Notifications</p>
-                  <p className="text-sm text-gray-600">Get reminders about saved content</p>
+                  <p className="text-sm font-medium text-gray-900 dark:text-gray-100">Email Notifications</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Get reminders about saved content</p>
                 </div>
               </div>
               <button
                 onClick={handleToggleNotifications}
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                  notifications ? 'bg-primary-600' : 'bg-gray-200'
+                  notifications ? 'bg-primary-600 dark:bg-primary-500' : 'bg-gray-200 dark:bg-gray-700'
                 }`}
               >
                 <span
@@ -141,27 +141,27 @@ function Settings() {
 
         {/* Integrations */}
         <div className="card">
-          <h2 className="text-lg font-medium text-gray-900 mb-4">Integrations</h2>
+          <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">Integrations</h2>
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center">
-                <Chrome className="h-5 w-5 text-gray-400 mr-3" />
+                <Chrome className="h-5 w-5 text-gray-400 dark:text-gray-500 mr-3" />
                 <div>
-                  <p className="text-sm font-medium text-gray-900">Browser Extension</p>
-                  <p className="text-sm text-gray-600">Save bookmarks from any website</p>
+                  <p className="text-sm font-medium text-gray-900 dark:text-gray-100">Browser Extension</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Save bookmarks from any website</p>
                 </div>
               </div>
-              <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+              <span className="text-xs bg-yellow-100 dark:bg-yellow-900/50 text-yellow-800 dark:text-yellow-200 px-2 py-1 rounded-full">
                 Coming Soon
               </span>
             </div>
             
             <div className="flex items-center justify-between">
               <div className="flex items-center">
-                <MessageCircle className="h-5 w-5 text-gray-400 mr-3" />
+                <MessageCircle className="h-5 w-5 text-gray-400 dark:text-gray-500 mr-3" />
                 <div>
-                  <p className="text-sm font-medium text-gray-900">WhatsApp Bot</p>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm font-medium text-gray-900 dark:text-gray-100">WhatsApp Bot</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
                     {linkedPhone 
                       ? `Linked to ${linkedPhone.phone_number}`
                       : 'Save links by messaging the bot'
@@ -172,7 +172,7 @@ function Settings() {
               <button
                 onClick={handleToggleWhatsAppBot}
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                  whatsappBot ? 'bg-primary-600' : 'bg-gray-200'
+                  whatsappBot ? 'bg-primary-600 dark:bg-primary-500' : 'bg-gray-200 dark:bg-gray-700'
                 }`}
               >
                 <span
@@ -187,20 +187,20 @@ function Settings() {
 
         {/* Privacy & Security */}
         <div className="card">
-          <h2 className="text-lg font-medium text-gray-900 mb-4">Privacy & Security</h2>
+          <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">Privacy & Security</h2>
           <div className="space-y-4">
             <div className="flex items-center">
-              <Shield className="h-5 w-5 text-gray-400 mr-3" />
+              <Shield className="h-5 w-5 text-gray-400 dark:text-gray-500 mr-3" />
               <div>
-                <p className="text-sm font-medium text-gray-900">Data Privacy</p>
-                <p className="text-sm text-gray-600">Your data is encrypted and secure</p>
+                <p className="text-sm font-medium text-gray-900 dark:text-gray-100">Data Privacy</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Your data is encrypted and secure</p>
               </div>
             </div>
             
             <button
               onClick={handleDeleteAccount}
               disabled={isDeleting}
-              className="flex items-center text-red-600 hover:text-red-700 disabled:opacity-50"
+              className="flex items-center text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 text-sm disabled:opacity-50"
             >
               <Trash2 className="h-4 w-4 mr-2" />
               {isDeleting ? 'Deleting...' : 'Delete Account'}
@@ -210,10 +210,12 @@ function Settings() {
       </div>
 
       {/* WhatsApp Bot Setup Modal */}
-      <WhatsAppBotSetup 
-        isOpen={showWhatsAppSetup} 
-        onClose={handleWhatsAppSetupClose} 
-      />
+      {showWhatsAppSetup && (
+        <WhatsAppBotSetup
+          isOpen={showWhatsAppSetup}
+          onClose={handleWhatsAppSetupClose}
+        />
+      )}
     </div>
   )
 }

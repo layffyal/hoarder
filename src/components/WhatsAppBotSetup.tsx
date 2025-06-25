@@ -169,16 +169,16 @@ function WhatsAppBotSetup({ isOpen, onClose }: WhatsAppBotSetupProps) {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg shadow-xl max-w-md w-full mx-4 max-h-[90vh] overflow-y-auto">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-md w-full mx-4 max-h-[90vh] overflow-y-auto">
         <div className="p-6">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-semibold text-gray-900 flex items-center">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 flex items-center">
               <MessageCircle className="h-5 w-5 mr-2 text-green-600" />
               WhatsApp Bot Setup
             </h2>
             <button
               onClick={onClose}
-              className="text-gray-400 hover:text-gray-600"
+              className="text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300"
             >
               ✕
             </button>
@@ -186,17 +186,17 @@ function WhatsAppBotSetup({ isOpen, onClose }: WhatsAppBotSetupProps) {
 
           {step === 'input' && (
             <div>
-              <p className="text-gray-600 mb-4">
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
                 Link your phone number to enable WhatsApp bookmarking. Send any link to our bot and it will be automatically saved to your account.
               </p>
               
               <form onSubmit={handleLinkPhone}>
                 <div className="mb-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Phone Number
                   </label>
                   <div className="flex">
-                    <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
+                    <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-400 text-sm">
                       <Phone className="h-4 w-4" />
                     </span>
                     <input
@@ -208,7 +208,7 @@ function WhatsAppBotSetup({ isOpen, onClose }: WhatsAppBotSetupProps) {
                       disabled={loading}
                     />
                   </div>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                     Include country code (e.g., +1 for US)
                   </p>
                 </div>
@@ -235,10 +235,10 @@ function WhatsAppBotSetup({ isOpen, onClose }: WhatsAppBotSetupProps) {
 
           {step === 'instructions' && linkedPhone && (
             <div>
-              <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
+              <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4 mb-6">
                 <div className="flex items-center">
                   <CheckCircle className="h-5 w-5 text-green-600 mr-2" />
-                  <span className="text-green-800 font-medium">
+                  <span className="text-green-800 dark:text-green-200 font-medium">
                     Phone number linked: {linkedPhone.phone_number}
                   </span>
                 </div>
@@ -246,19 +246,19 @@ function WhatsAppBotSetup({ isOpen, onClose }: WhatsAppBotSetupProps) {
 
               <div className="space-y-4">
                 <div>
-                  <h3 className="font-medium text-gray-900 mb-2">Next Steps:</h3>
-                  <ol className="list-decimal list-inside space-y-2 text-sm text-gray-600">
+                  <h3 className="font-medium text-gray-900 dark:text-gray-100 mb-2">Next Steps:</h3>
+                  <ol className="list-decimal list-inside space-y-2 text-sm text-gray-600 dark:text-gray-400">
                     <li>Save our bot number to your contacts</li>
                     <li>Send any link to the bot</li>
                     <li>Your bookmark will be automatically saved!</li>
                   </ol>
                 </div>
 
-                <div className="bg-gray-50 rounded-lg p-4">
+                <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-medium text-gray-900">Bot Number</p>
-                      <p className="text-lg font-mono text-gray-700">+1 (555) 123-4567</p>
+                      <p className="text-sm font-medium text-gray-900 dark:text-gray-100">Bot Number</p>
+                      <p className="text-lg font-mono text-gray-700 dark:text-gray-300">+1 (555) 123-4567</p>
                     </div>
                     <button
                       onClick={copyBotNumber}
@@ -270,10 +270,10 @@ function WhatsAppBotSetup({ isOpen, onClose }: WhatsAppBotSetupProps) {
                   </div>
                 </div>
 
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
                   <div className="flex items-start">
                     <AlertCircle className="h-5 w-5 text-blue-600 mr-2 mt-0.5" />
-                    <div className="text-sm text-blue-800">
+                    <div className="text-sm text-blue-800 dark:text-blue-200">
                       <p className="font-medium mb-1">Important:</p>
                       <p>This is a demo number. In production, you'll need to set up a real WhatsApp Business API account.</p>
                     </div>
@@ -300,27 +300,27 @@ function WhatsAppBotSetup({ isOpen, onClose }: WhatsAppBotSetupProps) {
 
           {step === 'success' && linkedPhone && (
             <div>
-              <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
+              <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4 mb-6">
                 <div className="flex items-center">
                   <CheckCircle className="h-5 w-5 text-green-600 mr-2" />
-                  <span className="text-green-800 font-medium">
+                  <span className="text-green-800 dark:text-green-200 font-medium">
                     WhatsApp bot is ready!
                   </span>
                 </div>
               </div>
 
               <div className="space-y-4">
-                <div className="bg-gray-50 rounded-lg p-4">
+                <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-medium text-gray-900">Linked Number</p>
-                      <p className="text-lg font-mono text-gray-700">{linkedPhone.phone_number}</p>
+                      <p className="text-sm font-medium text-gray-900 dark:text-gray-100">Linked Number</p>
+                      <p className="text-lg font-mono text-gray-700 dark:text-gray-300">{linkedPhone.phone_number}</p>
                     </div>
-                    <QrCode className="h-8 w-8 text-gray-400" />
+                    <QrCode className="h-8 w-8 text-gray-400 dark:text-gray-500" />
                   </div>
                 </div>
 
-                <div className="text-sm text-gray-600">
+                <div className="text-sm text-gray-600 dark:text-gray-400">
                   <p className="mb-2">You can now:</p>
                   <ul className="list-disc list-inside space-y-1">
                     <li>Send any link to our WhatsApp bot</li>

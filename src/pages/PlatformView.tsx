@@ -71,7 +71,7 @@ function PlatformView() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600 dark:border-primary-400"></div>
       </div>
     )
   }
@@ -80,14 +80,14 @@ function PlatformView() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Platforms</h1>
-        <p className="text-gray-600">Browse your bookmarks by source platform</p>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Platforms</h1>
+        <p className="text-gray-600 dark:text-gray-400">Browse your bookmarks by source platform</p>
       </div>
 
       {/* Search */}
       <div className="relative">
         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-          <Search className="h-5 w-5 text-gray-400" />
+          <Search className="h-5 w-5 text-gray-400 dark:text-gray-500" />
         </div>
         <input
           type="text"
@@ -106,15 +106,15 @@ function PlatformView() {
             onClick={() => setSelectedPlatform(platform.id)}
             className={`p-4 rounded-lg border-2 transition-all ${
               selectedPlatform === platform.id
-                ? 'border-primary-500 bg-primary-50'
-                : 'border-gray-200 bg-white hover:border-gray-300 hover:shadow-sm'
+                ? 'border-primary-500 bg-primary-50 dark:border-primary-400 dark:bg-primary-900/20'
+                : 'border-gray-200 bg-white hover:border-gray-300 hover:shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:hover:border-gray-600'
             }`}
           >
             <div className="flex items-center space-x-3">
               <span className="text-2xl">{getPlatformIcon(platform.id)}</span>
               <div className="text-left">
-                <h3 className="font-medium text-gray-900">{platform.name}</h3>
-                <p className="text-sm text-gray-600">{platform.count} bookmarks</p>
+                <h3 className="font-medium text-gray-900 dark:text-gray-100">{platform.name}</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{platform.count} bookmarks</p>
               </div>
             </div>
           </button>
@@ -124,13 +124,13 @@ function PlatformView() {
       {/* Results */}
       {filteredBookmarks.length === 0 ? (
         <div className="text-center py-12">
-          <div className="mx-auto h-12 w-12 text-gray-400 mb-4">
+          <div className="mx-auto h-12 w-12 text-gray-400 dark:text-gray-500 mb-4">
             <Globe className="h-12 w-12" />
           </div>
-          <h3 className="text-lg font-medium text-gray-900 mb-2">
+          <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
             {searchQuery || selectedPlatform !== 'all' ? 'No bookmarks found' : 'No bookmarks yet'}
           </h3>
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-gray-400">
             {searchQuery || selectedPlatform !== 'all' 
               ? 'Try adjusting your search or selecting a different platform'
               : 'Start saving bookmarks to see them organized by platform'
@@ -140,10 +140,10 @@ function PlatformView() {
       ) : (
         <div>
           <div className="mb-4">
-            <h2 className="text-lg font-medium text-gray-900">
+            <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
               {selectedPlatform === 'all' ? 'All Platforms' : `${platforms.find(p => p.id === selectedPlatform)?.name} Bookmarks`}
             </h2>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-gray-600 dark:text-gray-400">
               {filteredBookmarks.length} bookmark{filteredBookmarks.length !== 1 ? 's' : ''} found
             </p>
           </div>

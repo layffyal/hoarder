@@ -11,6 +11,7 @@ import {
   Plus
 } from 'lucide-react'
 import AddBookmarkModal from './AddBookmarkModal'
+import ThemeToggle from './ThemeToggle'
 
 function Layout() {
   const { signOut } = useAuth()
@@ -38,13 +39,13 @@ function Layout() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Sidebar */}
-      <div className="fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg">
+      <div className="fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg dark:bg-gray-800 dark:shadow-gray-900/20">
         <div className="flex h-full flex-col">
           {/* Logo */}
-          <div className="flex h-16 items-center justify-center border-b border-gray-200">
-            <h1 className="text-xl font-bold text-primary-600">🧠 Hoarder</h1>
+          <div className="flex h-16 items-center justify-center border-b border-gray-200 dark:border-gray-700">
+            <h1 className="text-xl font-bold text-primary-600 dark:text-primary-400">🧠 Hoarder</h1>
           </div>
 
           {/* Navigation */}
@@ -57,8 +58,8 @@ function Layout() {
                   to={item.href}
                   className={`group flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
                     isActive
-                      ? 'bg-primary-100 text-primary-700'
-                      : 'text-gray-700 hover:bg-gray-100'
+                      ? 'bg-primary-100 text-primary-700 dark:bg-primary-900/50 dark:text-primary-300'
+                      : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700'
                   }`}
                 >
                   <item.icon className="mr-3 h-5 w-5" />
@@ -69,14 +70,17 @@ function Layout() {
           </nav>
 
           {/* Sign out */}
-          <div className="border-t border-gray-200 p-4">
-            <button
-              onClick={handleSignOut}
-              className="group flex w-full items-center px-3 py-2 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-100 transition-colors"
-            >
-              <LogOut className="mr-3 h-5 w-5" />
-              Sign out
-            </button>
+          <div className="border-t border-gray-200 dark:border-gray-700 p-4">
+            <div className="flex items-center justify-between">
+              <button
+                onClick={handleSignOut}
+                className="group flex items-center px-3 py-2 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-100 transition-colors dark:text-gray-300 dark:hover:bg-gray-700"
+              >
+                <LogOut className="mr-3 h-5 w-5" />
+                Sign out
+              </button>
+              <ThemeToggle />
+            </div>
           </div>
         </div>
       </div>
@@ -93,7 +97,7 @@ function Layout() {
       {/* Floating Action Button */}
       <button
         onClick={() => setIsAddModalOpen(true)}
-        className="fixed bottom-6 right-6 z-40 bg-primary-600 text-white rounded-full p-4 shadow-lg hover:bg-primary-700 transition-colors"
+        className="fixed bottom-6 right-6 z-40 bg-primary-600 text-white rounded-full p-4 shadow-lg hover:bg-primary-700 transition-colors dark:bg-primary-500 dark:hover:bg-primary-600"
         title="Add Bookmark"
       >
         <Plus className="h-6 w-6" />

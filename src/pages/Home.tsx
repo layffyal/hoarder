@@ -82,7 +82,7 @@ function Home() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600 dark:border-primary-400"></div>
       </div>
     )
   }
@@ -92,8 +92,8 @@ function Home() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Your Bookmarks</h1>
-          <p className="text-gray-600">Manage and discover your saved content</p>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Your Bookmarks</h1>
+          <p className="text-gray-600 dark:text-gray-400">Manage and discover your saved content</p>
         </div>
         <div className="flex items-center gap-2">
           {bookmarks.length === 0 && (
@@ -123,7 +123,7 @@ function Home() {
       <div className="flex flex-col sm:flex-row gap-4">
         <div className="flex-1 relative">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <Search className="h-5 w-5 text-gray-400" />
+            <Search className="h-5 w-5 text-gray-400 dark:text-gray-500" />
           </div>
           <input
             type="text"
@@ -135,11 +135,11 @@ function Home() {
         </div>
         
         <div className="flex items-center gap-2">
-          <div className="flex items-center bg-white border border-gray-300 rounded-lg">
+          <div className="flex items-center bg-white border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600">
             <button
               onClick={() => setViewMode('grid')}
               className={`p-2 rounded-l-lg ${
-                viewMode === 'grid' ? 'bg-primary-100 text-primary-700' : 'text-gray-600 hover:bg-gray-100'
+                viewMode === 'grid' ? 'bg-primary-100 text-primary-700 dark:bg-primary-900/50 dark:text-primary-300' : 'text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600'
               }`}
             >
               <Grid className="h-4 w-4" />
@@ -147,7 +147,7 @@ function Home() {
             <button
               onClick={() => setViewMode('list')}
               className={`p-2 rounded-r-lg ${
-                viewMode === 'list' ? 'bg-primary-100 text-primary-700' : 'text-gray-600 hover:bg-gray-100'
+                viewMode === 'list' ? 'bg-primary-100 text-primary-700 dark:bg-primary-900/50 dark:text-primary-300' : 'text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600'
               }`}
             >
               <List className="h-4 w-4" />
@@ -164,8 +164,8 @@ function Home() {
             onClick={() => setSelectedPlatform(platform.id)}
             className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
               selectedPlatform === platform.id
-                ? 'bg-primary-600 text-white'
-                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                ? 'bg-primary-600 text-white dark:bg-primary-500'
+                : 'bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'
             }`}
           >
             {platform.name} ({platform.count})
@@ -176,13 +176,13 @@ function Home() {
       {/* Bookmarks Grid/List */}
       {filteredBookmarks.length === 0 ? (
         <div className="text-center py-12">
-          <div className="mx-auto h-12 w-12 text-gray-400 mb-4">
+          <div className="mx-auto h-12 w-12 text-gray-400 dark:text-gray-500 mb-4">
             <Search className="h-12 w-12" />
           </div>
-          <h3 className="text-lg font-medium text-gray-900 mb-2">
+          <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
             {searchQuery || selectedPlatform !== 'all' ? 'No bookmarks found' : 'No bookmarks yet'}
           </h3>
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-gray-400">
             {searchQuery || selectedPlatform !== 'all' 
               ? 'Try adjusting your search or filters'
               : 'Start saving your favorite content from around the web'

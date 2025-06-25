@@ -174,4 +174,45 @@ This project is licensed under the MIT License.
 
 ## 🆘 Support
 
-If you encounter any issues or have questions, please open an issue on GitHub. 
+If you encounter any issues or have questions, please open an issue on GitHub.
+
+### 🔗 Embedded Content Preview
+- **Click to Expand**: Click any bookmark to expand and view embedded content
+- **Platform-Specific Previews**: Enhanced previews for different platforms:
+  - **YouTube/Vimeo**: Direct video embeds with player controls
+  - **Twitter/X**: Social media post previews with engagement metrics
+  - **LinkedIn**: Professional content previews
+  - **Reddit**: Community discussion previews
+  - **GitHub**: Repository information and stats
+  - **TikTok**: Video previews with social features
+  - **Web Content**: Rich previews with thumbnails and descriptions
+- **Fullscreen Mode**: Toggle fullscreen view for immersive content viewing
+- **Keyboard Shortcuts**: Press `Esc` to exit fullscreen mode
+
+### 📱 Multi-Platform Support
+- **Browser Extension**: Save bookmarks directly from your browser
+- **WhatsApp Integration**: Send links via WhatsApp to automatically save
+- **Web Dashboard**: Beautiful web interface for managing your bookmarks
+
+### 🎨 Modern UI/UX
+- **Responsive Design**: Works seamlessly on desktop and mobile
+- **Dark/Light Mode**: Choose your preferred theme
+- **Smooth Animations**: Delightful micro-interactions and transitions
+- **Accessibility**: Built with accessibility best practices
+
+## 🆘 Support
+
+- 📧 Email: support@hoarder.app
+- 🐛 Issues: [GitHub Issues](https://github.com/yourusername/hoarder/issues)
+- 📖 Documentation: [Wiki](https://github.com/yourusername/hoarder/wiki)
+
+## Roadmap
+
+- [ ] Mobile app (React Native)
+- [ ] Advanced analytics and insights
+- [ ] Collaborative bookmarking
+- [ ] AI-powered content recommendations
+- [ ] Export/import functionality
+- [ ] Advanced search filters
+- [ ] Bookmark collections and folders
+- [ ] Integration with more platforms 
