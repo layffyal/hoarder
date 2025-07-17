@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { X, Link, Tag, Plus, Loader2, Sparkles } from 'lucide-react'
+import { X, Link, Tag, Plus, Loader2, Sparkles, Eye, EyeOff } from 'lucide-react'
 import { useAuth } from '../contexts/AuthContext'
 import { supabase } from '../lib/supabase'
 import { fetchUrlMetadata, generateTags } from '../lib/metadata'
@@ -30,6 +30,7 @@ function AddBookmarkModal({ isOpen, onClose, onBookmarkAdded }: AddBookmarkModal
   const [platform, setPlatform] = useState<PlatformType>('web')
   const [tags, setTags] = useState<string[]>([])
   const [newTag, setNewTag] = useState('')
+  const [isPublic, setIsPublic] = useState(true)
   const [loading, setLoading] = useState(false)
   const [fetchingMetadata, setFetchingMetadata] = useState(false)
 
@@ -95,6 +96,7 @@ function AddBookmarkModal({ isOpen, onClose, onBookmarkAdded }: AddBookmarkModal
         platform,
         tags,
         source: 'web' as const,
+        is_public: isPublic,
         user_id: user.id
       }
 
@@ -123,6 +125,7 @@ function AddBookmarkModal({ isOpen, onClose, onBookmarkAdded }: AddBookmarkModal
     setPlatform('web')
     setTags([])
     setNewTag('')
+    setIsPublic(true)
     onClose()
   }
 
@@ -167,6 +170,45 @@ function AddBookmarkModal({ isOpen, onClose, onBookmarkAdded }: AddBookmarkModal
             </div>
             <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
               Paste a URL and we'll automatically fetch the metadata
+            </p>
+          </div>
+
+          {/* Privacy Toggle */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              Privacy
+            </label>
+            <div className="flex items-center space-x-3">
+              <button
+                type="button"
+                onClick={() => setIsPublic(true)}
+                className={`flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  isPublic
+                    ? 'bg-green-100 text-green-700 border border-green-300 dark:bg-green-900/50 dark:text-green-300 dark:border-green-600'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'
+                }`}
+              >
+                <Eye className="h-4 w-4" />
+                <span>Public</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setIsPublic(false)}
+                className={`flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  !isPublic
+                    ? 'bg-red-100 text-red-700 border border-red-300 dark:bg-red-900/50 dark:text-red-300 dark:border-red-600'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'
+                }`}
+              >
+                <EyeOff className="h-4 w-4" />
+                <span>Private</span>
+              </button>
+            </div>
+            <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+              {isPublic 
+                ? 'This bookmark will be visible to people who follow you'
+                : 'This bookmark will only be visible to you'
+              }
             </p>
           </div>
 
@@ -217,7 +259,7 @@ function AddBookmarkModal({ isOpen, onClose, onBookmarkAdded }: AddBookmarkModal
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="Enter description (optional)"
+              placeholder="Enter bookmark description"
               rows={3}
               className="input resize-none"
             />
@@ -239,11 +281,10 @@ function AddBookmarkModal({ isOpen, onClose, onBookmarkAdded }: AddBookmarkModal
 
           {/* Tags Input */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 flex items-center">
-              <Sparkles className="h-4 w-4 mr-1" />
-              Tags (AI-generated)
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              Tags
             </label>
-            <div className="flex gap-2 mb-2">
+            <div className="flex space-x-2 mb-2">
               <input
                 type="text"
                 value={newTag}
@@ -255,25 +296,25 @@ function AddBookmarkModal({ isOpen, onClose, onBookmarkAdded }: AddBookmarkModal
               <button
                 type="button"
                 onClick={addTag}
-                className="btn btn-secondary p-3 sm:p-2"
+                className="btn btn-primary flex items-center space-x-1"
               >
                 <Plus className="h-4 w-4" />
+                <span className="hidden sm:inline">Add</span>
               </button>
             </div>
             {tags.length > 0 && (
               <div className="flex flex-wrap gap-2">
-                {tags.map((tag) => (
+                {tags.map((tag, index) => (
                   <span
-                    key={tag}
+                    key={index}
                     className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-primary-100 text-primary-700 dark:bg-primary-900/50 dark:text-primary-300"
                   >
                     <Tag className="h-3 w-3 mr-1" />
-                    <span className="hidden sm:inline">{tag}</span>
-                    <span className="sm:hidden">{tag.slice(0, 8)}</span>
+                    {tag}
                     <button
                       type="button"
                       onClick={() => removeTag(tag)}
-                      className="ml-1 p-1 text-primary-500 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-200"
+                      className="ml-1 hover:text-primary-900 dark:hover:text-primary-100"
                     >
                       <X className="h-3 w-3" />
                     </button>
@@ -283,8 +324,8 @@ function AddBookmarkModal({ isOpen, onClose, onBookmarkAdded }: AddBookmarkModal
             )}
           </div>
 
-          {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 pt-4">
+          {/* Submit Button */}
+          <div className="flex space-x-3 pt-4">
             <button
               type="button"
               onClick={handleClose}
@@ -295,16 +336,14 @@ function AddBookmarkModal({ isOpen, onClose, onBookmarkAdded }: AddBookmarkModal
             <button
               type="submit"
               disabled={loading}
-              className="btn btn-primary flex-1"
+              className="btn btn-primary flex-1 flex items-center justify-center space-x-2"
             >
               {loading ? (
-                <div className="flex items-center">
-                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                  Adding...
-                </div>
+                <Loader2 className="h-4 w-4 animate-spin" />
               ) : (
-                'Add Bookmark'
+                <Sparkles className="h-4 w-4" />
               )}
+              <span>{loading ? 'Adding...' : 'Add Bookmark'}</span>
             </button>
           </div>
         </form>

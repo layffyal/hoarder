@@ -11,6 +11,10 @@ import Categories from './pages/Categories'
 import PlatformView from './pages/PlatformView'
 import Settings from './pages/Settings'
 import LandingPage from './pages/LandingPage'
+import Feed from './pages/Feed'
+import Discover from './pages/Discover'
+import Profile from './pages/Profile'
+import Test from './pages/Test'
 
 function App() {
   return (
@@ -27,9 +31,13 @@ function App() {
               {/* Protected routes */}
               <Route path="/app" element={<PrivateRoute><Layout /></PrivateRoute>}>
                 <Route index element={<Home />} />
+                <Route path="feed" element={<Feed />} />
+                <Route path="discover" element={<Discover />} />
+                <Route path="profile" element={<Profile />} />
                 <Route path="categories" element={<Categories />} />
                 <Route path="platforms" element={<PlatformView />} />
                 <Route path="settings" element={<Settings />} />
+                <Route path="test" element={<Test />} />
               </Route>
             </Routes>
             

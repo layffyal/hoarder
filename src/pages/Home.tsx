@@ -19,19 +19,34 @@ function Home() {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false)
 
   useEffect(() => {
-    fetchBookmarks()
-  }, [])
+    if (user) {
+      fetchBookmarks()
+    }
+  }, [user])
 
   const fetchBookmarks = async () => {
+    if (!user) return
+
     try {
+      setLoading(true)
       const { data, error } = await supabase
         .from('bookmarks')
         .select('*')
-        .eq('user_id', user?.id)
+        .eq('user_id', user.id)
         .order('created_at', { ascending: false })
 
-      if (error) throw error
-      setBookmarks(data || [])
+      if (error) {
+        console.error('Database error:', error)
+        throw error
+      }
+      
+      // Ensure all bookmarks have the is_public field (for backward compatibility)
+      const bookmarksWithDefaults = (data || []).map((bookmark: any) => ({
+        ...bookmark,
+        is_public: bookmark.is_public ?? true
+      }))
+      
+      setBookmarks(bookmarksWithDefaults)
     } catch (error) {
       toast.error('Failed to load bookmarks')
       console.error('Error fetching bookmarks:', error)
@@ -72,10 +87,13 @@ function Home() {
 
   const platforms = [
     { id: 'all', name: 'All Platforms', count: bookmarks.length },
+    { id: 'youtube', name: 'YouTube', count: bookmarks.filter(b => b.platform === 'youtube').length },
+    { id: 'vimeo', name: 'Vimeo', count: bookmarks.filter(b => b.platform === 'vimeo').length },
     { id: 'twitter', name: 'Twitter', count: bookmarks.filter(b => b.platform === 'twitter').length },
     { id: 'linkedin', name: 'LinkedIn', count: bookmarks.filter(b => b.platform === 'linkedin').length },
     { id: 'reddit', name: 'Reddit', count: bookmarks.filter(b => b.platform === 'reddit').length },
     { id: 'tiktok', name: 'TikTok', count: bookmarks.filter(b => b.platform === 'tiktok').length },
+    { id: 'github', name: 'GitHub', count: bookmarks.filter(b => b.platform === 'github').length },
     { id: 'web', name: 'Web', count: bookmarks.filter(b => b.platform === 'web').length },
   ]
 

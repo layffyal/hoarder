@@ -8,7 +8,10 @@ import {
   Grid,
   Settings, 
   LogOut,
-  Plus
+  Plus,
+  Users,
+  Rss,
+  User
 } from 'lucide-react'
 import AddBookmarkModal from './AddBookmarkModal'
 import ThemeToggle from './ThemeToggle'
@@ -19,10 +22,14 @@ function Layout() {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false)
 
   const navigation = [
-    { name: 'Home', href: '/', icon: Home },
-    { name: 'Categories', href: '/categories', icon: Bookmark },
-    { name: 'Platforms', href: '/platforms', icon: Grid },
-    { name: 'Settings', href: '/settings', icon: Settings },
+    { name: 'Home', href: '/app', icon: Home },
+    { name: 'Feed', href: '/app/feed', icon: Rss },
+    { name: 'Discover', href: '/app/discover', icon: Users },
+    { name: 'Profile', href: '/app/profile', icon: User },
+    { name: 'Categories', href: '/app/categories', icon: Bookmark },
+    { name: 'Platforms', href: '/app/platforms', icon: Grid },
+    { name: 'Settings', href: '/app/settings', icon: Settings },
+    { name: 'Test', href: '/app/test', icon: Settings },
   ]
 
   const handleSignOut = async () => {

@@ -28,7 +28,8 @@ const createSupabaseClient = () => {
         delete: () => ({
           eq: () => Promise.resolve({ error: new Error('Supabase not configured') })
         })
-      })
+      }),
+      rpc: () => Promise.resolve({ data: [], error: null })
     } as any
   }
 
@@ -45,9 +46,10 @@ export interface Bookmark {
   title: string
   description?: string
   image_url?: string
-  platform: 'twitter' | 'linkedin' | 'reddit' | 'tiktok' | 'web'
+  platform: 'youtube' | 'vimeo' | 'twitter' | 'linkedin' | 'reddit' | 'tiktok' | 'github' | 'web'
   tags: string[]
   source: 'web' | 'whatsapp' | 'extension'
+  is_public: boolean
   created_at: string
   updated_at: string
 }
@@ -65,4 +67,47 @@ export interface UserPhoneNumber {
   is_verified: boolean
   created_at: string
   updated_at: string
+}
+
+export interface UserProfile {
+  id: string
+  user_id: string
+  username?: string
+  display_name?: string
+  bio?: string
+  avatar_url?: string
+  is_private: boolean
+  created_at: string
+  updated_at: string
+  followStatus?: 'none' | 'pending' | 'following'
+}
+
+export interface Follow {
+  id: string
+  follower_id: string
+  following_id: string
+  status: 'pending' | 'accepted' | 'rejected'
+  created_at: string
+  updated_at: string
+}
+
+export interface FeedBookmark extends Bookmark {
+  author_username?: string
+  author_display_name?: string
+}
+
+export interface Follower {
+  follower_id: string
+  follower_username?: string
+  follower_display_name?: string
+  status: string
+  created_at: string
+}
+
+export interface Following {
+  following_id: string
+  following_username?: string
+  following_display_name?: string
+  status: string
+  created_at: string
 } 
