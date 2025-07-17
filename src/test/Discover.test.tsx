@@ -4,10 +4,6 @@ import userEvent from '@testing-library/user-event'
 import Discover from '../pages/Discover'
 import { FollowService } from '../lib/followService'
 
-// Create mock functions after importing vi
-let errorMock = vi.fn()
-let successMock = vi.fn()
-
 // Mock react-hot-toast
 vi.mock('react-hot-toast', () => ({
   toast: {

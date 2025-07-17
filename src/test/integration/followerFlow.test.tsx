@@ -4,7 +4,6 @@ import userEvent from '@testing-library/user-event'
 import { BrowserRouter } from 'react-router-dom'
 import Discover from '../../pages/Discover'
 import Profile from '../../pages/Profile'
-import { FollowService } from '../../lib/followService'
 import { mockFollowService } from '../__mocks__/followService'
 import { useAuth } from '../../contexts/AuthContext'
 
